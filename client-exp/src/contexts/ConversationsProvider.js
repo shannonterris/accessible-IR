@@ -8,10 +8,12 @@ export function useConversations() {
 }
 
 export function ConversationsProvider({ id, children }) {
-  const [conversation, setConversation] = useLocalStorage("conversation", {});
+  const [conversation, setConversation] = useLocalStorage("conversation", {
+    messages: [],
+  });
 
   function createConversation(recipients) {
-    setConversation({ messages: [] });
+    setConversation({ messages: [] }); // need to think about how to structure this
   }
 
   function addMessageToConversation({ text, sender, timestamp }) {
@@ -24,12 +26,17 @@ export function ConversationsProvider({ id, children }) {
     });
   }
 
+  const formattedConversation = conversation.messages.map((message) => {
+    const fromMe = id === message.sender;
+    return { ...message, fromMe };
+  });
+
   function sendMessage(text, timestamp) {
     addMessageToConversation({ text, sender: id, timestamp });
   }
 
   const value = {
-    conversation,
+    conversation: formattedConversation,
     createConversation,
     sendMessage,
   };

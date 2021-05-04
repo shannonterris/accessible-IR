@@ -1,5 +1,5 @@
 import React from "react";
-import UserView from "./UserView";
+import UserView from "./Message";
 
 export default function Dashboard({ id }) {
   return (

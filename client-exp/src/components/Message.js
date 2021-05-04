@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Form, Button, InputGroup } from "react-bootstrap";
 import * as Constants from "../constants";
 import { useConversations } from "../contexts/ConversationsProvider";
+import ActivityFeed from "./ActivityFeed";
 
 export default function UserView({ id }) {
   const [text, setText] = useState("");
@@ -10,10 +11,12 @@ export default function UserView({ id }) {
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page
-    const currentDate = new Date();
+
+    const currentDate = new Date(); // Get timestamp of when message is sent
     const timestamp = currentDate.getTime();
+
     sendMessage(text, timestamp);
-    setText("");
+    setText(""); // Reset text entry field to empty
   }
 
   return (
@@ -37,6 +40,7 @@ export default function UserView({ id }) {
           </InputGroup>
         </Form.Group>
       </Form>
+      <ActivityFeed />
     </div>
   );
 }
