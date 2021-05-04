@@ -1,10 +1,10 @@
 import React from "react";
 import UserView from "./UserView";
 
-export default function Dashboard() {
+export default function Dashboard({ id }) {
   return (
     <div>
-      <UserView />
+      <UserView id={id} />
     </div>
   );
 }
