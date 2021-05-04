@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Container, Form, Button, InputGroup } from "react-bootstrap";
 import * as Constants from "../constants";
+import { useConversations } from "../contexts/ConversationsProvider";
 
 export default function UserView({ id }) {
   const [text, setText] = useState("");
 
+  const { sendMessage } = useConversations();
+
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page
+    const currentDate = new Date();
+    const timestamp = currentDate.getTime();
+    sendMessage(text, timestamp);
     setText("");
   }
 
