@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Container, Form, Button, InputGroup } from "react-bootstrap";
-import * as Constants from "../constants";
 import { useConversations } from "../contexts/ConversationsProvider";
-import ActivityFeed from "./ActivityFeed";
+import TestMessageComponent from "./TestMessageComponent";
 
-export default function UserView({ id }) {
+export default function Message({ id }) {
   const [text, setText] = useState("");
 
   const { sendMessage } = useConversations();
@@ -20,27 +19,28 @@ export default function UserView({ id }) {
   }
 
   return (
-    <div style={{ width: "250px" }} className="flex-column d-flex">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="m-2">
-          {id === Constants.userId
-            ? "User Page *TESTING*"
-            : "Helper Page *TESTING*"}
-          <InputGroup>
-            <Form.Control
-              as="textarea"
-              required
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              style={{ height: "75px", resize: "none" }}
-            ></Form.Control>
-            <InputGroup.Append>
-              <Button type="submit">Send</Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </Form.Group>
-      </Form>
-      <ActivityFeed />
+    <div className="border">
+      <div className="row justify-content-start">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="ml-3">
+            <InputGroup>
+              <Form.Control
+                as="textarea"
+                required
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                style={{ height: "75px", resize: "none" }}
+              ></Form.Control>
+              <InputGroup.Append>
+                <Button type="submit">Send</Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form.Group>
+        </Form>
+      </div>
+      <div className="row">
+        <TestMessageComponent />
+      </div>
     </div>
   );
 }

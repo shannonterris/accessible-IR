@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
 
-export default function ActivityFeed() {
+export default function TestMessageComponent() {
   const setRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({ smooth: true });
