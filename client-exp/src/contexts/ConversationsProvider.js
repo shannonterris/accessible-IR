@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
+import speak from "../components/SpeechSynthesis";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useSocket } from "./SocketProvider";
 
@@ -27,7 +28,7 @@ export function ConversationsProvider({ id, children }) {
           ? { messages: [...prevConversation.messages, newMessage] }
           : { messages: [newMessage] };
         return newConversation;
-      });
+      }, speak(text, sender, id));
     },
     [setConversation]
   );
