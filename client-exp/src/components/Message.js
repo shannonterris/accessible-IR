@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button, InputGroup } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
+import * as Constants from "../constants";
 import TestMessageComponent from "./TestMessageComponent";
 
 export default function Message({ id }) {
@@ -19,10 +20,15 @@ export default function Message({ id }) {
   }
 
   return (
-    <div className="border">
-      <div className="row justify-content-start">
+    <div className="">
+      <div className="border row justify-content-center">
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="ml-3">
+          <Form.Group className="p-3">
+            <Form.Label>
+              {id === Constants.helperId
+                ? "Send Text to Speech:"
+                : "Send Message:"}
+            </Form.Label>
             <InputGroup>
               <Form.Control
                 as="textarea"
@@ -38,7 +44,7 @@ export default function Message({ id }) {
           </Form.Group>
         </Form>
       </div>
-      <div className="row">
+      <div className="border row">
         <TestMessageComponent />
       </div>
     </div>
