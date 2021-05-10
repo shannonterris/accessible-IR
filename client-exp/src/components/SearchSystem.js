@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup, Nav } from "react-bootstrap";
+import { Container, Form, Button, InputGroup, Nav, Tab } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -33,14 +33,20 @@ export default function SearchSystem() {
           </InputGroup>
         </Form.Group>
       </Form>
-      <Nav variant="tabs" defaultActiveKey="web">
-        <Nav.Item>
-          <Nav.Link eventKey="web">Web Results</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="images">Images</Nav.Link>
-        </Nav.Item>
-      </Nav>
+      <Tab.Container>
+        <Nav variant="tabs" defaultActiveKey="web">
+          <Nav.Item>
+            <Nav.Link eventKey="web">Web Results</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="images">Images</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Tab.Content>
+          <Tab.Pane eventKey="web">Web search results here</Tab.Pane>
+          <Tab.Pane eventKey="images">Images search results here</Tab.Pane>
+        </Tab.Content>
+      </Tab.Container>
     </div>
   );
 }
