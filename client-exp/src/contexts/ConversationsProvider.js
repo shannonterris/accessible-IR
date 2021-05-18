@@ -49,10 +49,15 @@ export function ConversationsProvider({ id, children }) {
     addMessageToConversation({ text, sender: id, timestamp });
   }
 
+  function sendImage(url, timestamp) {
+    socket.emit("send-image", { url, timestamp });
+  }
+
   const value = {
     conversation: formattedConversation,
     createConversation,
     sendMessage,
+    sendImage,
   };
 
   return (

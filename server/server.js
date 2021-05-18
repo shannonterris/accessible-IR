@@ -25,4 +25,15 @@ io.on("connection", (socket) => {
       timestamp,
     });
   });
+
+  // TODO: handling of sending an image
+  // socket.on("send-image", ({ text, timestamp }) => {
+  //   const recipient = id === "userProfile" ? "helperProfile" : "userProfile";
+  //   logMessage(id, text, timestamp);
+  //   socket.broadcast.to(recipient).emit("receive-message", {
+  //     sender: id,
+  //     text,
+  //     timestamp,
+  //   });
+  // });
 });

@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { Container, Form, Button, InputGroup, Nav, Tab } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { googleSearch } from "../api/GoogleSearch";
+import Gallery from "./Gallery";
 
 export default function SearchSystem() {
   const [searchText, setSearchText] = useState("");
+  const [images, setImages] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page
-
+    // Need to also log this search
+    googleSearch(searchText, setImages);
     setSearchText(""); // Reset text entry field to empty
   }
 
@@ -44,7 +48,9 @@ export default function SearchSystem() {
         </Nav>
         <Tab.Content>
           <Tab.Pane eventKey="web">Web search results here</Tab.Pane>
-          <Tab.Pane eventKey="images">Images search results here</Tab.Pane>
+          <Tab.Pane eventKey="images">
+            <Gallery images={images} />
+          </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
     </div>

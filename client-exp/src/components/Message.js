@@ -3,6 +3,7 @@ import { Container, Form, Button, InputGroup } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
 import * as Constants from "../constants";
 import TestMessageComponent from "./TestMessageComponent";
+import DropArea from "./DropArea";
 
 export default function Message({ id }) {
   const [text, setText] = useState("");
@@ -43,6 +44,9 @@ export default function Message({ id }) {
             </InputGroup>
           </Form.Group>
         </Form>
+      </div>
+      <div className="border row">
+        <DropArea />
       </div>
       <div className="border row">
         <TestMessageComponent />
