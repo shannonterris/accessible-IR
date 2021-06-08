@@ -54,12 +54,10 @@ export default function DropArea() {
   }
 
   return (
-    <div>
-      <div id="drop-region">
-        <div class="drop-message">Drag & Drop images here</div>
-        <div id="image-preview">
-          <Image src={imgUrl} fluid />
-        </div>
+    <div id="drop-region" className="w-100 drop-region">
+      <div class="drop-message">Drag & Drop images here</div>
+      <div id="image-preview">
+        <Image src={imgUrl} fluid />
       </div>
     </div>
   );
