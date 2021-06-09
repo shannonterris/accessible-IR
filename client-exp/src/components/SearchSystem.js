@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup, Nav, Tab } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  InputGroup,
+  Nav,
+  Tab,
+  Pagination,
+  PageItem,
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { googleSearch } from "../api/GoogleSearch";
 import Gallery from "./Gallery";
-import Pagination from "./Pagination";
 
 export default function SearchSystem() {
   const [searchText, setSearchText] = useState("");
   const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page
@@ -59,7 +68,37 @@ export default function SearchSystem() {
         <Tab.Content>
           <Tab.Pane eventKey="web">Web search results here</Tab.Pane>
           <Tab.Pane eventKey="images">
-            <Gallery images={images} />
+            <Gallery images={images} currentPage={page} />
+            {images.length === 0 ? null : (
+              <Pagination>
+                <Pagination.Prev
+                  disabled={page === 1}
+                  onClick={(event) => setPage(page - 1)}
+                />
+                <Pagination.Item
+                  active={page === 1 ? true : false}
+                  onClick={(event) => setPage(1)}
+                >
+                  {1}
+                </Pagination.Item>
+                <Pagination.Item
+                  active={page === 2 ? true : false}
+                  onClick={(event) => setPage(2)}
+                >
+                  {2}
+                </Pagination.Item>
+                <Pagination.Item
+                  active={page === 3 ? true : false}
+                  onClick={(event) => setPage(3)}
+                >
+                  {3}
+                </Pagination.Item>
+                <Pagination.Next
+                  disabled={page === 3}
+                  onClick={(event) => setPage(page + 1)}
+                />
+              </Pagination>
+            )}
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
