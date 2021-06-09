@@ -55,7 +55,6 @@ export default function DropArea() {
 
   return (
     <div id="drop-region" className="w-100 drop-region">
-      <div class="drop-message">Drag & Drop images here</div>
       <div id="image-preview">
         <Image src={imgUrl} fluid />
       </div>

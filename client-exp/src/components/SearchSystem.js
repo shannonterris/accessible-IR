@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Container, Form, Button, InputGroup, Nav, Tab } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fas, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { googleSearch } from "../api/GoogleSearch";
 import Gallery from "./Gallery";
+import Pagination from "./Pagination";
 
 export default function SearchSystem() {
   const [searchText, setSearchText] = useState("");
@@ -13,7 +14,10 @@ export default function SearchSystem() {
     e.preventDefault(); // Prevent the auto refresh of page
     // Need to also log this search
     googleSearch(searchText, setImages);
-    setSearchText(""); // Reset text entry field to empty
+  }
+
+  function clearSearch() {
+    setSearchText("");
   }
 
   return (
@@ -30,6 +34,12 @@ export default function SearchSystem() {
               style={{ "max-width": "50%" }}
             ></Form.Control>
             <InputGroup.Append>
+              <Button
+                className="clear-button btn-light border"
+                onClick={clearSearch}
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
               <Button type="submit">
                 <FontAwesomeIcon icon={faSearch} />
               </Button>
@@ -37,8 +47,8 @@ export default function SearchSystem() {
           </InputGroup>
         </Form.Group>
       </Form>
-      <Tab.Container>
-        <Nav variant="tabs" defaultActiveKey="web">
+      <Tab.Container defaultActiveKey="images">
+        <Nav variant="tabs">
           <Nav.Item>
             <Nav.Link eventKey="web">Web Results</Nav.Link>
           </Nav.Item>
