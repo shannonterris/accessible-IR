@@ -11,6 +11,11 @@ function logMessage(id, text, timestamp) {
   console.log("Time: " + d + " | " + id + " sent: " + text);
 }
 
+function logSearch(id, text, timestamp) {
+  const d = new Date(timestamp);
+  console.log("Time: " + d + " | " + id + " searched for: " + text);
+}
+
 io.on("connection", (socket) => {
   const id = socket.handshake.query.id; // id of client connected
   socket.join(id);
@@ -24,6 +29,10 @@ io.on("connection", (socket) => {
       text,
       timestamp,
     });
+  });
+
+  socket.on("search-google", ({ searchText, timestamp }) => {
+    logSearch(id, searchText, timestamp);
   });
 
   // TODO: handling of sending an image

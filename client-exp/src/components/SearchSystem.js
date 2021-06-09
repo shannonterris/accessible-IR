@@ -13,15 +13,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { googleSearch } from "../api/GoogleSearch";
 import Gallery from "./Gallery";
+import { useSocket } from "../contexts/SocketProvider";
 
 export default function SearchSystem() {
   const [searchText, setSearchText] = useState("");
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
+  const socket = useSocket();
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page
-    // Need to also log this search
+    const currentDate = new Date(); // Get timestamp of when message is sent
+    const timestamp = currentDate.getTime();
+    setPage(1);
+    // Logging of google search to server
+    socket.emit("search-google", { searchText, timestamp });
     googleSearch(searchText, setImages);
   }
 
