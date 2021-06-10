@@ -6,6 +6,7 @@ import {
   swap,
   move,
 } from "react-grid-dnd";
+import ImageDrop from "./ImageDrop";
 
 export default function GridDnD() {
   const [items, setItems] = React.useState({
@@ -51,7 +52,9 @@ export default function GridDnD() {
           {items.right.map((item) => (
             <GridItem key={item.name}>
               <div className="grid-item">
-                <div className="grid-item-content">{item.name}</div>
+                <div className="grid-item-content">
+                  <ImageDrop />
+                </div>
               </div>
             </GridItem>
           ))}
