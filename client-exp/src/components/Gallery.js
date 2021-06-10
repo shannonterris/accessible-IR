@@ -3,7 +3,9 @@ import { Image } from "react-bootstrap";
 
 export default function Gallery({ images, currentPage }) {
   // If current page is 1 0-9,   if 2  10-19   if 3 20-29
+
   const displayImages = images.slice((currentPage - 1) * 10, currentPage * 10);
+
   return (
     <div className="row">
       {displayImages.length === 0 ? (
