@@ -43,6 +43,11 @@ io.on("connection", (socket) => {
   socket.on("send-image", ({ layout, timestamp }) => {
     logGrid(id, layout, timestamp);
     const recipient = "userProfile";
+    socket.broadcast.to(recipient).emit("receive-image", {
+      sender: id,
+      layout,
+      timestamp,
+    });
   });
 
   // TODO: handling of sending an image

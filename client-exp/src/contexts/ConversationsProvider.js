@@ -13,6 +13,7 @@ export function ConversationsProvider({ id, children }) {
   const [conversation, setConversation] = useLocalStorage("conversation", {
     messages: [],
   });
+  const [layout, setLayout] = useState([]);
 
   const socket = useSocket();
 
@@ -33,6 +34,16 @@ export function ConversationsProvider({ id, children }) {
     [setConversation]
   );
 
+  const addImagesToGrid = useCallback(
+    ({ layout, sender, timestamp }) => {
+      const currentLayout = JSON.parse(layout);
+      console.log(currentLayout);
+      // TODO Need to go through each object and set static to true :/
+      setLayout(currentLayout);
+    },
+    [setConversation]
+  );
+
   const formattedConversation = conversation.messages.map((message) => {
     const fromMe = id === message.sender;
     return { ...message, fromMe };
@@ -41,8 +52,12 @@ export function ConversationsProvider({ id, children }) {
   useEffect(() => {
     if (socket == null) return;
     socket.on("receive-message", addMessageToConversation);
-    return () => socket.off("receive-message");
-  }, [socket, addMessageToConversation]);
+    socket.on("receive-image", addImagesToGrid);
+    return () => {
+      socket.off("receive-message");
+      socket.off("receive-image");
+    };
+  }, [socket, addMessageToConversation, addImagesToGrid]);
 
   function sendMessage(text, timestamp) {
     socket.emit("send-message", { text, timestamp });
@@ -58,6 +73,7 @@ export function ConversationsProvider({ id, children }) {
     createConversation,
     sendMessage,
     sendImage,
+    tiles: layout,
   };
 
   return (

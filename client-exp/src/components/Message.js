@@ -4,6 +4,7 @@ import { useConversations } from "../contexts/ConversationsProvider";
 import * as Constants from "../constants";
 import TestMessageComponent from "./TestMessageComponent";
 import DropZone from "./DropZone.js";
+import ImageGrid from "./ImageGrid";
 
 export default function Message({ id }) {
   const [text, setText] = useState("");
@@ -45,7 +46,7 @@ export default function Message({ id }) {
         </Form>
       </div>
       <div className="border">
-        <DropZone />
+        {id === Constants.helperId ? <DropZone /> : <ImageGrid />}
       </div>
       <div className="border row">
         <TestMessageComponent />

@@ -12,7 +12,7 @@ export default function DropZone() {
 
   const onLayoutChange = (layout, layouts) => {
     // Saving to a State doesn't work for some reason so just save to a const
-    currentLayout = layout;
+    currentLayout = layout; // This stores the current layout to be sent through the button
   };
 
   const onRemoveItem = (itemKey) => {
