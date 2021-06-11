@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
+import { Image } from "react-bootstrap";
 import _ from "lodash";
 
 export default function DropZone() {
@@ -7,40 +8,43 @@ export default function DropZone() {
   const initTiles = JSON.parse(
     '[{"w":1,"h":1,"x":0,"y":0,"i":"a","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":1,"i":"b","moved":false,"static":false},{"w":1,"h":1,"x":2,"y":0,"i":"c","moved":false,"static":false}]'
   );
-  let dragCompleted = false;
-  let currentLayout = initTiles;
-  const [tiles, setTiles] = useState(initTiles);
+  let currentLayout = initTiles; // i think this will get reset every render??????
+  const [tiles, setTiles] = useState([]); // maybe move this outside....?
 
   const onLayoutChange = (layout, layouts) => {
+    // Saving to a State doesn't work for some reason so just save to a const
     currentLayout = layout;
-    console.log("layout set to" + currentLayout);
   };
 
   const onRemoveItem = (itemKey) => {
-    const currentTiles = tiles;
+    const currentTiles = currentLayout;
     setTiles(currentTiles.filter((tile) => tile.i !== itemKey));
   };
 
   const onDrop = (layout, layoutItem, _event) => {
-    alert(
-      `Dropped element props:\n${JSON.stringify(
-        layoutItem,
-        ["x", "y", "w", "h"],
-        2
-      )}`
+    const dt = _event.dataTransfer;
+    // get image url
+    const html = dt.getData("text/html");
+    const match = html && /\bsrc="?([^"\s]+)"?\s*/.exec(html);
+    const url = match && match[1];
+    // for testing print url
+    console.log(url);
+
+    const currentTiles = layout;
+    const results = currentTiles.filter(
+      (tile) => tile.i !== "__dropping-elem__"
     );
-    // setTiles({
-    //   // Add a new item. It must have a unique key!
-    //   items: tiles.concat({
-    //     i: "n" + tiles.newCounter,
-    //     x: (tiles.length * 2) % 2,
-    //     y: Infinity, // puts it at the bottom
-    //     w: 2,
-    //     h: 2,
-    //   }),
-    //   // Increment the counter to ensure key is always unique.
-    //   newCounter: tiles.newCounter + 1,
-    // });
+    console.log(layoutItem.x + " " + layoutItem.y);
+    results.push({
+      w: 1,
+      h: 1,
+      x: layoutItem.x,
+      y: layoutItem.y,
+      i: url,
+      moved: false,
+      static: false,
+    });
+    setTiles(results);
   };
 
   return (
@@ -56,10 +60,10 @@ export default function DropZone() {
     >
       {tiles.map((tile) => (
         <div className="dashboard-item" key={tile.i} data-grid={tile}>
-          Dashboard ITEM {tile.i}
           <span className="remove" onClick={(e) => onRemoveItem(tile.i)}>
             x
           </span>
+          <Image src={tile.i} fluid draggable={false} />
         </div>
       ))}
     </ResponsiveGridLayout>
