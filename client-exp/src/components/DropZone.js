@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
-import { Image } from "react-bootstrap";
+import { Image, Button } from "react-bootstrap";
+import { useConversations } from "../contexts/ConversationsProvider";
 import _ from "lodash";
 
 export default function DropZone() {
   const ResponsiveGridLayout = WidthProvider(Responsive);
-  const initTiles = JSON.parse(
-    '[{"w":1,"h":1,"x":0,"y":0,"i":"a","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":1,"i":"b","moved":false,"static":false},{"w":1,"h":1,"x":2,"y":0,"i":"c","moved":false,"static":false}]'
-  );
-  let currentLayout = initTiles; // i think this will get reset every render??????
+  const { sendImage } = useConversations();
+  let currentLayout = []; // i think this will get reset every render??????
   const [tiles, setTiles] = useState([]); // maybe move this outside....?
 
   const onLayoutChange = (layout, layouts) => {
@@ -27,14 +26,11 @@ export default function DropZone() {
     const html = dt.getData("text/html");
     const match = html && /\bsrc="?([^"\s]+)"?\s*/.exec(html);
     const url = match && match[1];
-    // for testing print url
-    console.log(url);
 
     const currentTiles = layout;
     const results = currentTiles.filter(
       (tile) => tile.i !== "__dropping-elem__"
     );
-    console.log(layoutItem.x + " " + layoutItem.y);
     results.push({
       w: 1,
       h: 1,
@@ -47,25 +43,36 @@ export default function DropZone() {
     setTiles(results);
   };
 
+  const sendImages = () => {
+    // send new image message using server
+    const currentDate = new Date(); // Get timestamp of when message is sent
+    const timestamp = currentDate.getTime();
+    console.log(currentLayout);
+    sendImage(JSON.stringify(currentLayout), timestamp);
+  };
+
   return (
-    <ResponsiveGridLayout
-      isDraggable
-      measureBeforeMount={true}
-      useCSSTransforms={true}
-      compactType={"vertical"}
-      isDroppable={true}
-      cols={{ lg: 4, md: 4, sm: 2, xs: 2, xxs: 1 }}
-      onDrop={onDrop}
-      onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
-    >
-      {tiles.map((tile) => (
-        <div className="dashboard-item" key={tile.i} data-grid={tile}>
-          <span className="remove" onClick={(e) => onRemoveItem(tile.i)}>
-            x
-          </span>
-          <Image src={tile.i} fluid draggable={false} />
-        </div>
-      ))}
-    </ResponsiveGridLayout>
+    <div>
+      <ResponsiveGridLayout
+        isDraggable
+        measureBeforeMount={true}
+        useCSSTransforms={true}
+        compactType={"vertical"}
+        isDroppable={true}
+        cols={{ lg: 4, md: 4, sm: 2, xs: 2, xxs: 1 }}
+        onDrop={onDrop}
+        onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
+      >
+        {tiles.map((tile) => (
+          <div className="dashboard-item" key={tile.i} data-grid={tile}>
+            <span className="remove" onClick={(e) => onRemoveItem(tile.i)}>
+              x
+            </span>
+            <Image src={tile.i} fluid draggable={false} />
+          </div>
+        ))}
+      </ResponsiveGridLayout>
+      <Button onClick={sendImages}>Send Grid</Button>;
+    </div>
   );
 }

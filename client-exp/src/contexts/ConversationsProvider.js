@@ -49,8 +49,8 @@ export function ConversationsProvider({ id, children }) {
     addMessageToConversation({ text, sender: id, timestamp });
   }
 
-  function sendImage(url, timestamp) {
-    socket.emit("send-image", { url, timestamp });
+  function sendImage(layout, timestamp) {
+    socket.emit("send-image", { layout, timestamp });
   }
 
   const value = {

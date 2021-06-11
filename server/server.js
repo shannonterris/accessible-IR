@@ -16,6 +16,11 @@ function logSearch(id, text, timestamp) {
   console.log("Time: " + d + " | " + id + " searched for: " + text);
 }
 
+function logGrid(id, text, timestamp) {
+  const d = new Date(timestamp);
+  console.log("Time: " + d + " | " + id + " sent image grid: " + text);
+}
+
 io.on("connection", (socket) => {
   const id = socket.handshake.query.id; // id of client connected
   socket.join(id);
@@ -33,6 +38,11 @@ io.on("connection", (socket) => {
 
   socket.on("search-google", ({ searchText, timestamp }) => {
     logSearch(id, searchText, timestamp);
+  });
+
+  socket.on("send-image", ({ layout, timestamp }) => {
+    logGrid(id, layout, timestamp);
+    const recipient = "userProfile";
   });
 
   // TODO: handling of sending an image

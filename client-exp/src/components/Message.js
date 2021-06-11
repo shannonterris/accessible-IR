@@ -7,7 +7,6 @@ import DropZone from "./DropZone.js";
 
 export default function Message({ id }) {
   const [text, setText] = useState("");
-
   const { sendMessage } = useConversations();
 
   function handleSubmit(e) {
