@@ -41,3 +41,11 @@ code {
   font-family: Arial, Helvetica, sans-serif;
   align-items: center;
 }
+
+.react-grid-layout {
+  background-color: gray;
+}
+
+.remove {
+  cursor: pointer;
+}
