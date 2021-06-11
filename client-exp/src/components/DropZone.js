@@ -50,7 +50,7 @@ export default function DropZone() {
   return (
     <ResponsiveGridLayout
       isDraggable
-      measureBeforeMount={false}
+      measureBeforeMount={true}
       useCSSTransforms={true}
       compactType={"vertical"}
       isDroppable={true}
