@@ -59,7 +59,7 @@ export default function DropZone() {
         useCSSTransforms={true}
         compactType={"vertical"}
         isDroppable={true}
-        cols={{ lg: 4, md: 4, sm: 2, xs: 2, xxs: 1 }}
+        cols={{ lg: 2, md: 2, sm: 2, xs: 2, xxs: 2 }}
         onDrop={onDrop}
         onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
       >
