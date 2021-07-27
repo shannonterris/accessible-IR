@@ -72,7 +72,7 @@ export default function DropZone() {
           </div>
         ))}
       </ResponsiveGridLayout>
-      <Button onClick={sendImages}>Send Grid</Button>;
+      <Button onClick={sendImages}>Send Grid</Button>
     </div>
   );
 }
