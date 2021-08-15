@@ -39,7 +39,9 @@ export function ConversationsProvider({ id, children }) {
     ({ layout, sender, timestamp }) => {
       const currentLayout = JSON.parse(layout);
       console.log(currentLayout);
-      // TODO Need to go through each object and set static to true :/
+      currentLayout.forEach((item) => {
+        item.static = true;
+      });
       setLayout(currentLayout);
     },
     [setLayout]
