@@ -6,14 +6,18 @@ export default function UserFeed() {
   const { userActivity, conversation } = useConversations();
   return (
     <div className="border">
-      User Activity
-      {userActivity.map((image) => {
-        return (
-          <div>
-            <Image src={image}></Image>
-          </div>
-        );
-      })}
+      <div className="p-3">
+        <h4>User Activity</h4>
+        <div style={{ maxHeight: "45vh", overflowY: "scroll" }}>
+          {userActivity.map((image) => {
+            return (
+              <div>
+                <Image src={image} className="img-fluid w-50"></Image>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

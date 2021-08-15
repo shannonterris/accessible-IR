@@ -163,7 +163,10 @@ export default function SearchSystem() {
     <div className="border">
       <Form onSubmit={handleSubmit}>
         <Form.Group className="p-3">
-          <Form.Label>Search System:</Form.Label>
+          <Form.Label>
+            {" "}
+            <h4>Search System</h4>
+          </Form.Label>
           <InputGroup>
             <Form.Control
               required
