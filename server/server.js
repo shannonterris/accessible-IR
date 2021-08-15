@@ -21,6 +21,11 @@ function logGrid(id, text, timestamp) {
   console.log("Time: " + d + " | " + id + " sent image grid: " + text);
 }
 
+function logTouch(id, text, timestamp) {
+  const d = new Date(timestamp);
+  console.log("Time: " + d + " | " + id + " touched image: " + text);
+}
+
 io.on("connection", (socket) => {
   const id = socket.handshake.query.id; // id of client connected
   socket.join(id);
@@ -50,14 +55,13 @@ io.on("connection", (socket) => {
     });
   });
 
-  // TODO: handling of sending an image
-  // socket.on("send-image", ({ text, timestamp }) => {
-  //   const recipient = id === "userProfile" ? "helperProfile" : "userProfile";
-  //   logMessage(id, text, timestamp);
-  //   socket.broadcast.to(recipient).emit("receive-message", {
-  //     sender: id,
-  //     text,
-  //     timestamp,
-  //   });
-  // });
+  socket.on("send-touch", ({ image, timestamp }) => {
+    logTouch(id, image, timestamp);
+    const recipient = "helperProfile";
+    socket.broadcast.to(recipient).emit("receive-touch", {
+      sender: id,
+      image,
+      timestamp,
+    });
+  });
 });

@@ -14,6 +14,7 @@ export function ConversationsProvider({ id, children }) {
     messages: [],
   });
   const [layout, setLayout] = useState([]);
+  const [userActivity, setUserActivity] = useState([]);
 
   const socket = useSocket();
 
@@ -41,7 +42,18 @@ export function ConversationsProvider({ id, children }) {
       // TODO Need to go through each object and set static to true :/
       setLayout(currentLayout);
     },
-    [setConversation]
+    [setLayout]
+  );
+
+  const addUserActivity = useCallback(
+    ({ image, sender, timestamp }) => {
+      console.log("Recieved that user touched" + image);
+      setUserActivity((prevUserActivity) => {
+        const newUserActivity = [image, ...prevUserActivity];
+        return newUserActivity;
+      });
+    },
+    [setUserActivity]
   );
 
   const formattedConversation = conversation.messages.map((message) => {
@@ -53,11 +65,13 @@ export function ConversationsProvider({ id, children }) {
     if (socket == null) return;
     socket.on("receive-message", addMessageToConversation);
     socket.on("receive-image", addImagesToGrid);
+    socket.on("receive-touch", addUserActivity);
     return () => {
       socket.off("receive-message");
       socket.off("receive-image");
+      socket.off("receive-touch");
     };
-  }, [socket, addMessageToConversation, addImagesToGrid]);
+  }, [socket, addMessageToConversation, addImagesToGrid, addUserActivity]);
 
   function sendMessage(text, timestamp) {
     socket.emit("send-message", { text, timestamp });
@@ -68,11 +82,17 @@ export function ConversationsProvider({ id, children }) {
     socket.emit("send-image", { layout, timestamp });
   }
 
+  function sendTouch(image, timestamp) {
+    socket.emit("send-touch", { image, timestamp });
+  }
+
   const value = {
     conversation: formattedConversation,
     createConversation,
     sendMessage,
     sendImage,
+    sendTouch,
+    userActivity,
     tiles: layout,
   };
 

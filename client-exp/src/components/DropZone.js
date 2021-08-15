@@ -9,9 +9,10 @@ export default function DropZone() {
   const { sendImage } = useConversations();
   let currentLayout = []; // i think this will get reset every render??????
   const [tiles, setTiles] = useState([]); // maybe move this outside....?
+  // TODO: set gridChanged to disable button when relevant
+  const [gridChanged, setGridChanged] = useState(true);
 
   const onLayoutChange = (layout, layouts) => {
-    // Saving to a State doesn't work for some reason so just save to a const
     currentLayout = layout; // This stores the current layout to be sent through the button
   };
 
@@ -72,7 +73,11 @@ export default function DropZone() {
           </div>
         ))}
       </ResponsiveGridLayout>
-      <Button onClick={sendImages}>Send Grid</Button>
+      {gridChanged ? (
+        <Button onClick={sendImages}>Send Grid</Button>
+      ) : (
+        <Button disabled>Send Grid</Button>
+      )}
     </div>
   );
 }
