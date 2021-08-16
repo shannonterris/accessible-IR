@@ -9,9 +9,11 @@ export function useSocket() {
 
 export function SocketProvider({ id, children }) {
   const [socket, setSocket] = useState();
+  const endpoint = "https://accessible-ir-server.herokuapp.com/";
+  // const endpoint = "http://localhost:5000"
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5000", {
+    const newSocket = io(endpoint, {
       query: { id },
     }); // change address for deployment?
     setSocket(newSocket);
