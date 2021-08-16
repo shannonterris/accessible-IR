@@ -49,6 +49,14 @@
   background: white;
 }
 
+.user-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .drop-zone {
   margin-right: -15px;
   margin-left: -15px;

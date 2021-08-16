@@ -3,7 +3,7 @@ import Message from "./Message";
 
 export default function UserDashboard({ id }) {
   return (
-    <div class="w-100">
+    <div>
       <Message id={id} />
     </div>
   );
