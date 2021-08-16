@@ -46,7 +46,12 @@
 }
 
 .dashboard-item {
-  background: orange;
+  background: white;
+}
+
+.drop-zone {
+  margin-right: -15px;
+  margin-left: -15px;
 }
 
 .react-grid-layout {

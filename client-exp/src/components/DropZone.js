@@ -53,7 +53,7 @@ export default function DropZone() {
   };
 
   return (
-    <div>
+    <div className="w-100">
       <ResponsiveGridLayout
         isDraggable
         measureBeforeMount={true}
@@ -61,6 +61,7 @@ export default function DropZone() {
         compactType={"vertical"}
         isDroppable={true}
         cols={{ lg: 2, md: 2, sm: 2, xs: 2, xxs: 2 }}
+        maxRows={2}
         onDrop={onDrop}
         onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
       >

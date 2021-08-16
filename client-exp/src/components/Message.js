@@ -45,11 +45,8 @@ export default function Message({ id }) {
           </Form.Group>
         </Form>
       </div>
-      <div className="border">
+      <div className="border drop-zone">
         {id === Constants.helperId ? <DropZone /> : <ImageGrid />}
-      </div>
-      <div className="border row">
-        <TestMessageComponent />
       </div>
     </div>
   );

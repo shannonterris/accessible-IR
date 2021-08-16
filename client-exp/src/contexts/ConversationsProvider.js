@@ -24,15 +24,13 @@ export function ConversationsProvider({ id, children }) {
 
   const addMessageToConversation = useCallback(
     ({ text, sender, timestamp }) => {
-      setConversation((prevConversation) => {
-        const newMessage = { sender, text, timestamp };
-        const newConversation = prevConversation
-          ? { messages: [...prevConversation.messages, newMessage] }
-          : { messages: [newMessage] };
+      setUserActivity((prevUserActivity) => {
+        const newMessage = { text, type: "text" };
+        const newConversation = [newMessage, ...prevUserActivity];
         return newConversation;
       }, speak(text, sender, id));
     },
-    [setConversation]
+    [setUserActivity]
   );
 
   const addImagesToGrid = useCallback(
@@ -40,7 +38,7 @@ export function ConversationsProvider({ id, children }) {
       const currentLayout = JSON.parse(layout);
       console.log(currentLayout);
       currentLayout.forEach((item) => {
-        item.static = true;
+        item.static = true; // Make images static so User cannot use the grid
       });
       setLayout(currentLayout);
     },
@@ -51,17 +49,13 @@ export function ConversationsProvider({ id, children }) {
     ({ image, sender, timestamp }) => {
       console.log("Recieved that user touched" + image);
       setUserActivity((prevUserActivity) => {
-        const newUserActivity = [image, ...prevUserActivity];
+        const newImage = { image, type: "image" };
+        const newUserActivity = [newImage, ...prevUserActivity];
         return newUserActivity;
       });
     },
     [setUserActivity]
   );
-
-  const formattedConversation = conversation.messages.map((message) => {
-    const fromMe = id === message.sender;
-    return { ...message, fromMe };
-  });
 
   useEffect(() => {
     if (socket == null) return;
@@ -89,7 +83,7 @@ export function ConversationsProvider({ id, children }) {
   }
 
   const value = {
-    conversation: formattedConversation,
+    conversation,
     createConversation,
     sendMessage,
     sendImage,
