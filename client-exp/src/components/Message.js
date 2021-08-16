@@ -21,7 +21,7 @@ export default function Message({ id }) {
   }
 
   return (
-    <div className="">
+    <div className="" style={{ maxWidth: "600px" }}>
       <div className="border row justify-content-center" id="message-component">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="p-3">

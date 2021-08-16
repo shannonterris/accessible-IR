@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { WidthProvider, Responsive, GridLayout } from "react-grid-layout";
+import { WidthProvider, Responsive } from "react-grid-layout";
+import GridLayout from "react-grid-layout";
 import { Image, Button } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
 import _ from "lodash";
@@ -11,6 +12,8 @@ export default function DropZone() {
   const [tiles, setTiles] = useState([]); // maybe move this outside....?
   // TODO: set gridChanged to disable button when relevant
   const [gridChanged, setGridChanged] = useState(true);
+
+  const gridWidth = 600;
 
   const onLayoutChange = (layout, layouts) => {
     currentLayout = layout; // This stores the current layout to be sent through the button
@@ -31,8 +34,8 @@ export default function DropZone() {
     const height = parseInt(/\bheight: "?([^"\s]+)"?\s*px;/.exec(html)[1]);
 
     // TODO: calculate w and h according to the items width and height!
-    // const yRatio = height / width; // this is wrong making it too small
-    // const heightItem = (gridWidth * yRatio) / 200; // calculate current height and divide by 100px
+    const yRatio = height / width; // this is wrong making it too small
+    const heightItem = ((gridWidth / 2) * yRatio) / 200; // calculate current height and divide by 100px
 
     const currentTiles = layout;
     const results = currentTiles.filter(
@@ -40,7 +43,7 @@ export default function DropZone() {
     );
     results.push({
       w: 1,
-      h: 1,
+      h: heightItem,
       x: layoutItem.x,
       y: layoutItem.y,
       i: url,
@@ -60,15 +63,16 @@ export default function DropZone() {
 
   return (
     <div className="w-100">
-      <ResponsiveGridLayout
+      <GridLayout
         isDraggable
         measureBeforeMount={true}
         useCSSTransforms={true}
         compactType={"vertical"}
         isDroppable={true}
         rowHeight={200}
-        cols={{ lg: 2, md: 2, sm: 2, xs: 2, xxs: 2 }}
+        cols={2}
         maxRows={4}
+        width={gridWidth}
         onDrop={onDrop}
         onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
       >
@@ -93,7 +97,7 @@ export default function DropZone() {
             </div>
           </div>
         ))}
-      </ResponsiveGridLayout>
+      </GridLayout>
       {gridChanged ? (
         <Button onClick={sendImages}>Send Grid</Button>
       ) : (

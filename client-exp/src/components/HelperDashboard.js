@@ -6,11 +6,11 @@ import Message from "./Message";
 export default function HelperDashboard({ id }) {
   return (
     <div className="row">
-      <div className="col-6">
+      <div className="col">
         <SearchSystem />
         <UserFeed />
       </div>
-      <div class="col-6">
+      <div style={{ width: "600px" }}>
         <Message id={id} />
       </div>
     </div>

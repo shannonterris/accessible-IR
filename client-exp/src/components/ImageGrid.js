@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
+import GridLayout from "react-grid-layout";
 import { Image, Button } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
 import ImageItem from "./ImageItem";
 import _ from "lodash";
 
 export default function DropZone() {
-  const ResponsiveGridLayout = WidthProvider(Responsive);
   const { tiles } = useConversations();
 
   return (
     <div>
-      <ResponsiveGridLayout
+      <GridLayout
         isDraggable
         measureBeforeMount={true}
         useCSSTransforms={true}
         compactType={"vertical"}
-        isDroppable={true}
-        cols={{ lg: 2, md: 2, sm: 2, xs: 2, xxs: 2 }}
+        cols={2}
+        rowHeight={200}
+        layout={tiles}
+        width={600}
       >
         {tiles.map((tile) => (
           <div
@@ -30,7 +32,7 @@ export default function DropZone() {
             <ImageItem tile={tile} />
           </div>
         ))}
-      </ResponsiveGridLayout>
+      </GridLayout>
     </div>
   );
 }

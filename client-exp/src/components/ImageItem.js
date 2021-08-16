@@ -23,7 +23,13 @@ export default function ImageItem({ tile }) {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        position: "absolute",
+        left: 0,
+        bottom: 0,
+      }}
+    >
       <Image src={tile.i} fluid draggable={false} />
     </div>
   );
