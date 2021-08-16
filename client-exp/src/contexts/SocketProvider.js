@@ -13,7 +13,6 @@ export function SocketProvider({ id, children }) {
   useEffect(() => {
     const newSocket = io("http://localhost:5000", {
       query: { id },
-      withCredentials: true,
     }); // change address for deployment?
     setSocket(newSocket);
     return () => newSocket.close();

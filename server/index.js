@@ -1,10 +1,19 @@
-const io = require("socket.io")(5000, {
+const cors = require("cors");
+const http = require("http");
+const express = require("express");
+
+const router = require("./router");
+const app = express();
+const server = http.createServer(app);
+
+const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-    credentials: true,
+    origin: "*",
   },
 });
+
+app.use(cors());
+app.use(router);
 
 function logMessage(id, text, timestamp) {
   const d = new Date(timestamp);
@@ -65,3 +74,7 @@ io.on("connection", (socket) => {
     });
   });
 });
+
+server.listen(process.env.PORT || 5000, () =>
+  console.log(`Server has started.`)
+);
