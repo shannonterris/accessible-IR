@@ -30,8 +30,8 @@ export default function SearchSystem() {
     // Logging of google search to server
     socket.emit("search-google", { searchText, timestamp });
     // TESTING COMMENT OUT FOR API LIMIT
-    googleSearch(searchText, setImages);
-    // setImages(IMAGES);
+    // googleSearch(searchText, setImages);
+    setImages(IMAGES);
   }
 
   function clearSearch() {
@@ -186,7 +186,7 @@ export default function SearchSystem() {
   ];
 
   return (
-    <div className="border">
+    <div className="border-top">
       <Form onSubmit={handleSubmit}>
         <Form.Group className="p-3">
           <Form.Label>
@@ -202,10 +202,7 @@ export default function SearchSystem() {
               style={{ "max-width": "50%" }}
             ></Form.Control>
             <InputGroup.Append>
-              <Button
-                className="clear-button btn-light border"
-                onClick={clearSearch}
-              >
+              <Button className="clear-button border" onClick={clearSearch}>
                 <FontAwesomeIcon icon={faTimes} />
               </Button>
               <Button type="submit">

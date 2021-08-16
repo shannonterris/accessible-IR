@@ -6,7 +6,7 @@ export default function UserFeed() {
   const { userActivity, conversation } = useConversations();
 
   return (
-    <div className="border">
+    <div className="border-bottom">
       <div className="p-3">
         <h4>User Activity</h4>
         <div style={{ maxHeight: "45vh", overflowY: "scroll" }}>

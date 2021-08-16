@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import GridLayout from "react-grid-layout";
 import { Image, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useConversations } from "../contexts/ConversationsProvider";
 import _ from "lodash";
 
@@ -17,10 +19,11 @@ export default function DropZone() {
 
   const onLayoutChange = (layout, layouts) => {
     currentLayout = layout; // This stores the current layout to be sent through the button
+    setTiles(layout);
   };
 
   const onRemoveItem = (itemKey) => {
-    const currentTiles = currentLayout;
+    const currentTiles = tiles;
     setTiles(currentTiles.filter((tile) => tile.i !== itemKey));
   };
 
@@ -57,8 +60,8 @@ export default function DropZone() {
     // send new image message using server
     const currentDate = new Date(); // Get timestamp of when message is sent
     const timestamp = currentDate.getTime();
-    console.log(currentLayout);
-    sendImage(JSON.stringify(currentLayout), timestamp);
+    console.log(tiles);
+    sendImage(JSON.stringify(tiles), timestamp);
   };
 
   return (
@@ -81,11 +84,11 @@ export default function DropZone() {
             className="dashboard-item"
             key={tile.i}
             data-grid={tile}
-            style={{ overflow: "hidden" }}
+            style={{ overflow: "hidden", position: "relative" }}
           >
-            <span className="remove" onClick={(e) => onRemoveItem(tile.i)}>
-              x
-            </span>
+            <Button className="remove" onClick={(e) => onRemoveItem(tile.i)}>
+              <FontAwesomeIcon icon={faTimes} />
+            </Button>
             <div
               style={{
                 position: "absolute",
@@ -98,11 +101,13 @@ export default function DropZone() {
           </div>
         ))}
       </GridLayout>
-      {gridChanged ? (
-        <Button onClick={sendImages}>Send Grid</Button>
-      ) : (
-        <Button disabled>Send Grid</Button>
-      )}
+      <div className="border-bottom p-3">
+        {gridChanged ? (
+          <Button onClick={sendImages}>Send Grid</Button>
+        ) : (
+          <Button disabled>Send Grid</Button>
+        )}
+      </div>
     </div>
   );
 }

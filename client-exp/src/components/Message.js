@@ -22,7 +22,10 @@ export default function Message({ id }) {
 
   return (
     <div className="" style={{ width: "600px" }}>
-      <div className="border row justify-content-center" id="message-component">
+      <div
+        className="border-top row justify-content-center"
+        id="message-component"
+      >
         <Form onSubmit={handleSubmit}>
           <Form.Group className="p-3">
             <Form.Label>
@@ -45,7 +48,7 @@ export default function Message({ id }) {
           </Form.Group>
         </Form>
       </div>
-      <div className="border drop-zone">
+      <div className="drop-zone">
         {id === Constants.helperId ? <DropZone /> : <ImageGrid />}
       </div>
     </div>
