@@ -22,7 +22,7 @@ export default function Message({ id }) {
 
   return (
     <div className="">
-      <div className="border row justify-content-center">
+      <div className="border row justify-content-center" id="message-component">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="p-3">
             <Form.Label>

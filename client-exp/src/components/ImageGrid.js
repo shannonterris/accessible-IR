@@ -25,6 +25,7 @@ export default function DropZone() {
             id={tile.i}
             key={tile.i}
             data-grid={tile}
+            style={{ overflow: "hidden" }}
           >
             <ImageItem tile={tile} />
           </div>

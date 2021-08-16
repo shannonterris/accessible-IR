@@ -12,7 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { googleSearch } from "../api/GoogleSearch";
-import Gallery from "./Gallery";
+// import Gallery from "./Gallery";
+import Gallery from "react-grid-gallery";
 import { useSocket } from "../contexts/SocketProvider";
 
 export default function SearchSystem() {
@@ -29,13 +30,38 @@ export default function SearchSystem() {
     // Logging of google search to server
     socket.emit("search-google", { searchText, timestamp });
     // TESTING COMMENT OUT FOR API LIMIT
-    // googleSearch(searchText, setImages);
-    setImages(imagesTest);
+    googleSearch(searchText, setImages);
+    // setImages(IMAGES);
   }
 
   function clearSearch() {
     setSearchText("");
   }
+
+  const IMAGES = [
+    {
+      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 174,
+    },
+    {
+      src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+    },
+
+    {
+      src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
+      thumbnail:
+        "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+    },
+  ];
 
   // image testing
   const imagesTest = [
@@ -201,37 +227,17 @@ export default function SearchSystem() {
         <Tab.Content>
           <Tab.Pane eventKey="web">Web search results here</Tab.Pane>
           <Tab.Pane eventKey="images">
-            <Gallery images={images} currentPage={page} />
-            {images.length === 0 ? null : (
-              <Pagination>
-                <Pagination.Prev
-                  disabled={page === 1}
-                  onClick={(event) => setPage(page - 1)}
-                />
-                <Pagination.Item
-                  active={page === 1 ? true : false}
-                  onClick={(event) => setPage(1)}
-                >
-                  {1}
-                </Pagination.Item>
-                <Pagination.Item
-                  active={page === 2 ? true : false}
-                  onClick={(event) => setPage(2)}
-                >
-                  {2}
-                </Pagination.Item>
-                <Pagination.Item
-                  active={page === 3 ? true : false}
-                  onClick={(event) => setPage(3)}
-                >
-                  {3}
-                </Pagination.Item>
-                <Pagination.Next
-                  disabled={page === 3}
-                  onClick={(event) => setPage(page + 1)}
-                />
-              </Pagination>
-            )}
+            <div
+              style={{
+                display: "block",
+                minHeight: "1px",
+                width: "100%",
+                border: "1px solid #ddd",
+                overflow: "auto",
+              }}
+            >
+              <Gallery images={images} enableImageSelection={false} />
+            </div>
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>

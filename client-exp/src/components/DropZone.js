@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { WidthProvider, Responsive } from "react-grid-layout";
+import React, { useState, useEffect } from "react";
+import { WidthProvider, Responsive, GridLayout } from "react-grid-layout";
 import { Image, Button } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
 import _ from "lodash";
@@ -27,6 +27,12 @@ export default function DropZone() {
     const html = dt.getData("text/html");
     const match = html && /\bsrc="?([^"\s]+)"?\s*/.exec(html);
     const url = match && match[1];
+    const width = parseInt(/\bwidth: "?([^"\s]+)"?\s*px;/.exec(html)[1]);
+    const height = parseInt(/\bheight: "?([^"\s]+)"?\s*px;/.exec(html)[1]);
+
+    // TODO: calculate w and h according to the items width and height!
+    // const yRatio = height / width; // this is wrong making it too small
+    // const heightItem = (gridWidth * yRatio) / 200; // calculate current height and divide by 100px
 
     const currentTiles = layout;
     const results = currentTiles.filter(
@@ -60,17 +66,31 @@ export default function DropZone() {
         useCSSTransforms={true}
         compactType={"vertical"}
         isDroppable={true}
+        rowHeight={200}
         cols={{ lg: 2, md: 2, sm: 2, xs: 2, xxs: 2 }}
-        maxRows={2}
+        maxRows={4}
         onDrop={onDrop}
         onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
       >
         {tiles.map((tile) => (
-          <div className="dashboard-item" key={tile.i} data-grid={tile}>
+          <div
+            className="dashboard-item"
+            key={tile.i}
+            data-grid={tile}
+            style={{ overflow: "hidden" }}
+          >
             <span className="remove" onClick={(e) => onRemoveItem(tile.i)}>
               x
             </span>
-            <Image src={tile.i} fluid draggable={false} />
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <Image src={tile.i} fluid draggable={false} />
+            </div>
           </div>
         ))}
       </ResponsiveGridLayout>

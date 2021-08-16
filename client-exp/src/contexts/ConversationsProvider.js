@@ -24,11 +24,15 @@ export function ConversationsProvider({ id, children }) {
 
   const addMessageToConversation = useCallback(
     ({ text, sender, timestamp }) => {
-      setUserActivity((prevUserActivity) => {
-        const newMessage = { text, type: "text" };
-        const newConversation = [newMessage, ...prevUserActivity];
-        return newConversation;
-      }, speak(text, sender, id));
+      if (sender === "userProfile") {
+        setUserActivity((prevUserActivity) => {
+          const newMessage = { text, type: "text" };
+          const newConversation = [newMessage, ...prevUserActivity];
+          return newConversation;
+        });
+      } else {
+        speak(text, sender, id);
+      }
     },
     [setUserActivity]
   );

@@ -8,9 +8,10 @@ function test(search) {
   // Maybe best way to do it would be to build an array of Promises and do a Promise.all()? like do 5 pages of urls and wait for them all to return
   //  na,  11, 21, 31, 41, 51
   const url = `https://customsearch.googleapis.com/customsearch/v1?cx=${Secret.CX_ID}&q=${search}&searchType=image&key=${Secret.API_KEY}`;
-  const urlPage2 = `https://customsearch.googleapis.com/customsearch/v1?cx=${Secret.CX_ID}&q=${search}&searchType=image&key=${Secret.API_KEY}&start=11`;
-  const urlPage3 = `https://customsearch.googleapis.com/customsearch/v1?cx=${Secret.CX_ID}&q=${search}&searchType=image&key=${Secret.API_KEY}&start=21`;
-  const urls = [url, urlPage2, urlPage3];
+  // const urlPage2 = `https://customsearch.googleapis.com/customsearch/v1?cx=${Secret.CX_ID}&q=${search}&searchType=image&key=${Secret.API_KEY}&start=11`;
+  // const urlPage3 = `https://customsearch.googleapis.com/customsearch/v1?cx=${Secret.CX_ID}&q=${search}&searchType=image&key=${Secret.API_KEY}&start=21`;
+  // const urls = [url, urlPage2, urlPage3];
+  const urls = [url];
   const headers = {
     accept: "application/json",
     "Content-Type": "application/json",
@@ -24,17 +25,12 @@ function test(search) {
   return Promise.all(promises).then((results) => {
     const arrayResults = results.flat();
     return arrayResults.map((item) => ({
-      image: item.link,
+      src: item.link,
+      thumbnail: item.link,
+      thumbnailWidth: item.image.thumbnailWidth,
+      thumbnailHeight: item.image.thumbnailHeight,
     }));
   });
-
-  // return fetch(url, { headers })
-  //   .then((res) => res.json())
-  //   .then((res) =>
-  //     res.items.map((item) => ({
-  //       image: item.link,
-  //     }))
-  //   );
 }
 
 export function googleSearch(search, setImages) {
