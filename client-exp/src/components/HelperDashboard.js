@@ -4,24 +4,32 @@ import UserFeed from "./UserFeed";
 import Message from "./Message";
 import { Button } from "react-bootstrap";
 import { useSocket } from "../contexts/SocketProvider";
+import { useState } from "react";
+import ModalConfirmation from "./ModalConfirmation";
 
 export default function HelperDashboard({ id }) {
   const socket = useSocket();
+  const [modalShow, setModalShow] = useState(false);
 
-  function restartLogs() {
-    // Show confirmation modal
-    socket.emit("delete-log", {});
-  }
-
-  function downloadLogs() {
+  function downloadLog() {
     // socket emit
   }
 
   return (
     <div>
+      <ModalConfirmation
+        show={modalShow}
+        heading="Restart Log"
+        text="Are you sure you want to restart the current log file?"
+        onClose={() => setModalShow(false)}
+        onSave={() => {
+          socket.emit("delete-log", {});
+          setModalShow(false);
+        }}
+      />
       <div className="p-1">
-        <Button>Download Logs</Button>
-        <Button onClick={restartLogs}>Restart Logs</Button>
+        <Button>Download Log</Button>
+        <Button onClick={() => setModalShow(true)}>Restart Log</Button>
       </div>
       <div className="row">
         <div className="col">
