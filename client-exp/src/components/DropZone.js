@@ -62,6 +62,7 @@ export default function DropZone() {
     const timestamp = currentDate.getTime();
     console.log(tiles);
     sendImage(JSON.stringify(tiles), timestamp);
+    setTiles([]); // After sending image clear current grid
   };
 
   return (
