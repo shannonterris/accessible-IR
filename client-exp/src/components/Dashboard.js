@@ -6,9 +6,7 @@ import UserDashboard from "./UserDashboard";
 export default function Dashboard({ id }) {
   return (
     <div
-      className={`container ${
-        id === Constants.userId ? "user-dashboard-container" : ""
-      }`}
+      className={`container ${id === Constants.userId ? "user-dashboard-container" : ""}`}
     >
       <p className="h1">{id === Constants.userId ? "User" : "Helper"}</p>
       {id === Constants.helperId ? (
