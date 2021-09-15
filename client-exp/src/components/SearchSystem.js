@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { googleSearch } from "../api/GoogleSearch";
+import { bingSearch } from "../api/BingSearch";
 // import Gallery from "./Gallery";
 import Gallery from "react-grid-gallery";
 import { useSocket } from "../contexts/SocketProvider";
@@ -30,7 +30,7 @@ export default function SearchSystem() {
     // Logging of google search to server
     socket.emit("search-google", { searchText, timestamp });
     // TESTING COMMENT OUT FOR API LIMIT
-    // googleSearch(searchText, setImages);
+    // bingSearch(searchText, setImages);
     setImages(IMAGES);
   }
 
