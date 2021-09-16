@@ -10,9 +10,26 @@ import ModalConfirmation from "./ModalConfirmation";
 export default function HelperDashboard({ id }) {
   const socket = useSocket();
   const [modalShow, setModalShow] = useState(false);
+  const serverURL = "http://localhost:5000/download";
+  // const serverURL = "https://accessible-ir-server.herokuapp.com/download";
 
   function downloadLog() {
-    // socket emit
+    fetch(serverURL).then((res) => {
+      res.blob().then((blob) => {
+        const newBlob = new Blob([blob]);
+
+        const blobUrl = window.URL.createObjectURL(newBlob);
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.setAttribute("download", `activity.log`);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+
+        window.URL.revokeObjectURL(blob);
+      });
+    });
   }
 
   return (
@@ -28,7 +45,7 @@ export default function HelperDashboard({ id }) {
         }}
       />
       <div className="p-1">
-        <Button>Download Log</Button>
+        <Button onClick={downloadLog}>Download Log</Button>
         <Button onClick={() => setModalShow(true)}>Restart Log</Button>
       </div>
       <div className="row">
