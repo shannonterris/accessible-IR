@@ -3,6 +3,8 @@ import { Image, Button } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
 
 export default function ImageItem({ tile }) {
+  // TODO: need to add animation on touch
+  // potential reference? https://dev.to/samwatts98/how-to-easily-animate-your-react-components-on-click-with-css-keyframes-26mg
   const { sendTouch } = useConversations();
   const imageClick = (e) => {
     console.log("clicked" + e.type); // debugging

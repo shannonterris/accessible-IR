@@ -25,6 +25,10 @@ body {
   border-radius: 25px 25px 0px 0px !important;
 }
 
+.border {
+  background-color: #eeeeee;
+}
+
 .border-bottom {
   background-color: #eeeeee;
   border-radius: 0px 0px 25px 25px !important;

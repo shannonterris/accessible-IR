@@ -5,6 +5,8 @@ import * as Constants from "../constants";
 import TestMessageComponent from "./TestMessageComponent";
 import DropZone from "./DropZone.js";
 import ImageGrid from "./ImageGrid";
+import SendText from "./SendText";
+import ReceiveText from "./ReceiveText";
 
 export default function Message({ id }) {
   const [text, setText] = useState("");
@@ -47,6 +49,9 @@ export default function Message({ id }) {
             </InputGroup>
           </Form.Group>
         </Form>
+      </div>
+      <div className="justify-content-center row border">
+        {id === Constants.helperId ? <SendText /> : <ReceiveText />}
       </div>
       <div className="drop-zone">
         {id === Constants.helperId ? <DropZone /> : <ImageGrid />}

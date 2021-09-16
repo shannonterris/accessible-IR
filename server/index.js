@@ -59,6 +59,12 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("send-text", ({ text, timestamp }) => {
+    const recipient = "userProfile";
+    // TODO: Add logging for this interaction
+    socket.broadcast.to(recipient).emit("receive-text", { text });
+  });
+
   socket.on("search-google", ({ searchText, timestamp }) => {
     logSearch(id, searchText, timestamp);
   });
@@ -88,4 +94,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
+server.listen(process.env.PORT || 5000, () =>
+  console.log(`Server has started.`)
+);

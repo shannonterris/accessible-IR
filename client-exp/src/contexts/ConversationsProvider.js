@@ -15,6 +15,7 @@ export function ConversationsProvider({ id, children }) {
   });
   const [layout, setLayout] = useState([]);
   const [userActivity, setUserActivity] = useState([]);
+  const [text, setText] = useState("");
 
   const socket = useSocket();
 
@@ -61,17 +62,32 @@ export function ConversationsProvider({ id, children }) {
     [setUserActivity]
   );
 
+  const addText = useCallback(
+    ({ text, sender, timestamp }) => {
+      setText(text);
+    },
+    [setText]
+  );
+
   useEffect(() => {
     if (socket == null) return;
     socket.on("receive-message", addMessageToConversation);
     socket.on("receive-image", addImagesToGrid);
     socket.on("receive-touch", addUserActivity);
+    socket.on("receive-text", addText);
     return () => {
       socket.off("receive-message");
       socket.off("receive-image");
       socket.off("receive-touch");
+      socket.off("receive-text");
     };
-  }, [socket, addMessageToConversation, addImagesToGrid, addUserActivity]);
+  }, [
+    socket,
+    addMessageToConversation,
+    addImagesToGrid,
+    addUserActivity,
+    addText,
+  ]);
 
   function sendMessage(text, timestamp) {
     socket.emit("send-message", { text, timestamp });
@@ -86,14 +102,20 @@ export function ConversationsProvider({ id, children }) {
     socket.emit("send-touch", { image, timestamp });
   }
 
+  function sendTextInfo(text, timestamp) {
+    socket.emit("send-text", { text, timestamp });
+  }
+
   const value = {
     conversation,
     createConversation,
     sendMessage,
+    sendTextInfo,
     sendImage,
     sendTouch,
     userActivity,
     tiles: layout,
+    text,
   };
 
   return (
