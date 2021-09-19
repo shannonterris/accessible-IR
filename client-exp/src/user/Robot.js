@@ -12,7 +12,7 @@ export default function Robot() {
         style={{ width: "200px" }}
         src="/robot_static.png"
       />
-      <p className="align-self-center p-3">{robotText}</p>
+      <p className="align-self-center pl-5">{robotText}</p>
     </div>
   );
 }
