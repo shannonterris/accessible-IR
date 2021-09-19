@@ -6,7 +6,7 @@ export default function Logout({ onIdSubmit }) {
     onIdSubmit(null);
   };
   return (
-    <div className="d-flex justify-content-end p-3">
+    <div className="d-flex justify-content-end pr-3 pt-3">
       <Button onClick={logout}>Log Out</Button>
     </div>
   );

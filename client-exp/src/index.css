@@ -1,9 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
 body {
   margin: 0;
-  background-color: #393e46 !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  background-color: #feeb71 !important;
+  font-family: "Manrope", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,12 +11,8 @@ body {
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:visited {
-  background-color: #00adb5 !important;
-  border-color: #00adb5 !important;
-}
-
-.h1 {
-  color: #eeeeee;
+  background-color: #00bbf9 !important;
+  border-color: #00bbf9 !important;
 }
 
 .border-top {

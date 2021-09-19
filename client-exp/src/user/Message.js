@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
-import * as Constants from "../constants";
-import TestMessageComponent from "./TestMessageComponent";
-import DropZone from "./DropZone.js";
-import ImageGrid from "./ImageGrid";
-import SendText from "./SendText";
+import ImageGrid from "../user/ImageGrid";
 import ReceiveText from "./ReceiveText";
 
 export default function Message({ id }) {
@@ -28,13 +24,8 @@ export default function Message({ id }) {
         className="border-top row justify-content-center"
         id="message-component"
       >
-        <Form onSubmit={handleSubmit}>
+        <Form className="w-100" onSubmit={handleSubmit}>
           <Form.Group className="p-3">
-            <Form.Label>
-              {id === Constants.helperId
-                ? "Send Text to Speech:"
-                : "Send Message:"}
-            </Form.Label>
             <InputGroup>
               <Form.Control
                 as="textarea"
@@ -51,10 +42,10 @@ export default function Message({ id }) {
         </Form>
       </div>
       <div className="justify-content-center row border">
-        {id === Constants.helperId ? <SendText /> : <ReceiveText />}
+        <ReceiveText />
       </div>
       <div className="drop-zone">
-        {id === Constants.helperId ? <DropZone /> : <ImageGrid />}
+        <ImageGrid />
       </div>
     </div>
   );

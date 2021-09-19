@@ -9,7 +9,7 @@ export default function Login({ onIdSubmit }) {
 
   return (
     <Container
-      className="align-items-center d-flex"
+      className="align-items-center justify-content-center d-flex"
       style={{ height: "100vh" }}
     >
       <Button id={Constants.userId} onClick={createNewId} className="mr-2">
