@@ -7,7 +7,11 @@ export default function Robot() {
   return (
     <div className="d-flex justify-content-left">
       {" "}
-      <Image style={{ width: "200px" }} src="/robot_static.png" />
+      <Image
+        className="robot"
+        style={{ width: "200px" }}
+        src="/robot_static.png"
+      />
       <p className="align-self-center p-3">{robotText}</p>
     </div>
   );
