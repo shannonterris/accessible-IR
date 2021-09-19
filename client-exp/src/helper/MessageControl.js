@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
-import * as Constants from "../constants";
 import DropZone from "./DropZone.js";
 import SendText from "./SendText";
 
-export default function Message({ id }) {
+export default function MessageControl() {
   const [text, setText] = useState("");
   const { sendMessage } = useConversations();
 
@@ -27,11 +26,7 @@ export default function Message({ id }) {
       >
         <Form onSubmit={handleSubmit}>
           <Form.Group className="p-3">
-            <Form.Label>
-              {id === Constants.helperId
-                ? "Send Text to Speech:"
-                : "Send Message:"}
-            </Form.Label>
+            <Form.Label>Send Text to Speech</Form.Label>
             <InputGroup>
               <Form.Control
                 as="textarea"

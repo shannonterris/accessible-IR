@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { useConversations } from "../contexts/ConversationsProvider";
-import ImageGrid from "../user/ImageGrid";
-import ReceiveText from "./ReceiveText";
 
 export default function Message({ id }) {
   const [text, setText] = useState("");
@@ -19,34 +17,26 @@ export default function Message({ id }) {
   }
 
   return (
-    <div className="" style={{ width: "600px" }}>
-      <div
-        className="border-top row justify-content-center"
-        id="message-component"
-      >
-        <Form className="w-100" onSubmit={handleSubmit}>
-          <Form.Group className="p-3">
-            <InputGroup>
-              <Form.Control
-                as="textarea"
-                required
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                style={{ height: "75px", resize: "none" }}
-              ></Form.Control>
-              <InputGroup.Append>
-                <Button type="submit">Send</Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Form.Group>
-        </Form>
-      </div>
-      <div className="justify-content-center row border">
-        <ReceiveText />
-      </div>
-      <div className="drop-zone">
-        <ImageGrid />
-      </div>
+    <div
+      className="border-top row justify-content-center"
+      id="message-component"
+    >
+      <Form className="w-100" onSubmit={handleSubmit}>
+        <Form.Group className="p-3">
+          <InputGroup>
+            <Form.Control
+              as="textarea"
+              required
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              style={{ height: "75px", resize: "none" }}
+            ></Form.Control>
+            <InputGroup.Append>
+              <Button type="submit">Send</Button>
+            </InputGroup.Append>
+          </InputGroup>
+        </Form.Group>
+      </Form>
     </div>
   );
 }

@@ -10,11 +10,7 @@ export default function Dashboard({ id }) {
         id === Constants.userId ? "user-dashboard-container" : ""
       }`}
     >
-      {id === Constants.helperId ? (
-        <HelperDashboard id={id} />
-      ) : (
-        <UserDashboard id={id} />
-      )}
+      {id === Constants.helperId ? <HelperDashboard /> : <UserDashboard />}
     </div>
   );
 }
