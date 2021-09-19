@@ -17,22 +17,17 @@ export default function Message({ id }) {
   }
 
   return (
-    <div
-      className="border-top row justify-content-center"
-      id="message-component"
-    >
+    <div id="message-component">
       <Form className="w-100" onSubmit={handleSubmit}>
         <Form.Group className="p-3">
           <InputGroup>
             <Form.Control
-              as="textarea"
               required
               value={text}
               onChange={(e) => setText(e.target.value)}
-              style={{ height: "75px", resize: "none" }}
             ></Form.Control>
             <InputGroup.Append>
-              <Button type="submit">Send</Button>
+              <Button type="submit">Search</Button>
             </InputGroup.Append>
           </InputGroup>
         </Form.Group>

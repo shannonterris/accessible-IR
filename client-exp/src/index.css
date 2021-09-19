@@ -44,6 +44,7 @@ code {
   flex: 1;
   height: 400px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  min-height: 100px;
 }
 
 .grid-item {
@@ -65,7 +66,8 @@ code {
 }
 
 .react-grid-layout {
-  background-color: #eeeeee;
+  background-color: #adfff4;
+  border-radius: 5px;
 }
 
 .remove {

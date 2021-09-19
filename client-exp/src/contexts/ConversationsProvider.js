@@ -16,6 +16,9 @@ export function ConversationsProvider({ id, children }) {
   const [layout, setLayout] = useState([]);
   const [userActivity, setUserActivity] = useState([]);
   const [text, setText] = useState("");
+  const [robotText, setRobotText] = useState(
+    "Hello! What would you like to search for?"
+  );
 
   const socket = useSocket();
 
@@ -32,6 +35,7 @@ export function ConversationsProvider({ id, children }) {
           return newConversation;
         });
       } else {
+        setRobotText(text);
         speak(text, sender, id);
       }
     },
@@ -116,6 +120,7 @@ export function ConversationsProvider({ id, children }) {
     userActivity,
     tiles: layout,
     text,
+    robotText,
   };
 
   return (
