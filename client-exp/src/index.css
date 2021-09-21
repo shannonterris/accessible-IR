@@ -89,3 +89,19 @@ code {
   animation-direction: alternate;
   animation-iteration-count: infinite;
 }
+
+@keyframes touch {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.touch-animation {
+  animation: touch 0.7s;
+}
