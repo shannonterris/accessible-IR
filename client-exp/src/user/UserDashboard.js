@@ -9,12 +9,7 @@ export default function UserDashboard() {
     <div className="" style={{ width: "600px" }}>
       <Robot />
       <Message />
-      <div
-        className="justify-content-center row "
-        style={{ "background-color": "#D3B8F4", "border-radius": "10px" }}
-      >
-        <ReceiveText />
-      </div>
+      <ReceiveText />
       <div className=" py-3 drop-zone">
         <ImageGrid />
       </div>

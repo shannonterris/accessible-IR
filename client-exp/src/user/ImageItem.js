@@ -13,6 +13,11 @@ export default function ImageItem({ tile }) {
     imageElement.classList.remove("touch-animation");
     void imageElement.offsetWidth;
     imageElement.classList.add("touch-animation");
+    // Play audio feedback on button press
+    const audio = new Audio(
+      "http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3"
+    );
+    audio.play();
 
     const currentDate = new Date(); // Get timestamp of when message is sent
     const timestamp = currentDate.getTime();

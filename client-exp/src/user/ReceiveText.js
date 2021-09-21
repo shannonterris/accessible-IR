@@ -4,8 +4,11 @@ import { useConversations } from "../contexts/ConversationsProvider";
 export default function ReceiveText() {
   const { text } = useConversations();
   return (
-    <div>
-      <p style={{ "font-weight": "bold" }}>{text}</p>
+    <div
+      className="justify-content-center row "
+      style={{ "background-color": "#D3B8F4", "border-radius": "10px" }}
+    >
+      <p>{text}</p>
     </div>
   );
 }
