@@ -6,6 +6,8 @@ export default function ImageItem({ tile }) {
   const { sendTouch } = useConversations();
   const imageClick = (e) => {
     console.log("clicked" + e.type); // debugging
+    e.stopPropagation();
+    e.preventDefault();
     // Animate pulse for images to get feedback
     const imageElement = e.target;
     imageElement.classList.remove("touch-animation");
@@ -15,9 +17,6 @@ export default function ImageItem({ tile }) {
     const currentDate = new Date(); // Get timestamp of when message is sent
     const timestamp = currentDate.getTime();
     sendTouch(tile.i, timestamp);
-
-    e.stopPropagation();
-    e.preventDefault();
   };
 
   useEffect(() => {
