@@ -59,6 +59,14 @@ export default function DropZone({ tiles, setTiles }) {
 
   return (
     <div className="w-100">
+      {tiles.length === 0 ? (
+        <h4
+          className="justify-content-center d-flex p-4 mb-0"
+          style={{ "background-color": "#adfff4" }}
+        >
+          Drag Images Here
+        </h4>
+      ) : null}
       <GridLayout
         isDraggable
         measureBeforeMount={true}
