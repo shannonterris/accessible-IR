@@ -1,7 +1,7 @@
 import React from "react";
 import SearchSystem from "./SearchSystem";
 import UserFeed from "./UserFeed";
-import MessageControl from "./MessageControl";
+import CreateSERP from "./CreateSERP";
 import LogsControl from "./LogsControl";
 
 export default function HelperDashboard() {
@@ -14,7 +14,7 @@ export default function HelperDashboard() {
           <UserFeed />
         </div>
         <div style={{ width: "600px" }}>
-          <MessageControl />
+          <CreateSERP />
         </div>
       </div>
     </div>

@@ -7,16 +7,12 @@ import { fas, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useConversations } from "../contexts/ConversationsProvider";
 import _ from "lodash";
 
-export default function DropZone() {
+export default function DropZone({ tiles, setTiles }) {
   const ResponsiveGridLayout = WidthProvider(Responsive);
   const { sendImage } = useConversations();
-  let currentLayout = []; // i think this will get reset every render??????
-  const [tiles, setTiles] = useState([]); // maybe move this outside....?
-
   const gridWidth = 600;
 
   const onLayoutChange = (layout, layouts) => {
-    currentLayout = layout; // This stores the current layout to be sent through the button
     setTiles(layout);
   };
 

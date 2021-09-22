@@ -3,8 +3,7 @@ import * as Constants from "../constants";
 import { useConversations } from "../contexts/ConversationsProvider";
 import { Container, Form, Button, InputGroup } from "react-bootstrap";
 
-export default function SendText() {
-  const [text, setText] = useState("");
+export default function SendText({ text, setText }) {
   const { sendTextInfo } = useConversations();
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page

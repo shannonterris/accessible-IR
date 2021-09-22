@@ -19,14 +19,12 @@ import { useSocket } from "../contexts/SocketProvider";
 export default function SearchSystem() {
   const [searchText, setSearchText] = useState("");
   const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
   const socket = useSocket();
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the auto refresh of page
     const currentDate = new Date(); // Get timestamp of when message is sent
     const timestamp = currentDate.getTime();
-    setPage(1);
     // Logging of google search to server
     socket.emit("search-google", { searchText, timestamp });
     // TESTING COMMENT OUT FOR API LIMIT
@@ -41,23 +39,20 @@ export default function SearchSystem() {
   const IMAGES = [
     {
       src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+      thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
       thumbnailWidth: 320,
       thumbnailHeight: 174,
     },
     {
       src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
       thumbnailWidth: 320,
       thumbnailHeight: 212,
     },
 
     {
       src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-      thumbnail:
-        "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
+      thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
       thumbnailWidth: 320,
       thumbnailHeight: 212,
     },
