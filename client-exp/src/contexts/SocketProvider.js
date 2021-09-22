@@ -9,8 +9,8 @@ export function useSocket() {
 
 export function SocketProvider({ id, children }) {
   const [socket, setSocket] = useState();
-  const endpoint = "https://accessible-ir-server.herokuapp.com/";
-  // const endpoint = "http://localhost:5000";
+  // const endpoint = "https://accessible-ir-server.herokuapp.com/";
+  const endpoint = "http://localhost:5000";
 
   useEffect(() => {
     const newSocket = io(endpoint, {
@@ -20,5 +20,7 @@ export function SocketProvider({ id, children }) {
     return () => newSocket.close();
   }, [id]);
 
-  return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
+  return (
+    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+  );
 }

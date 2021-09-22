@@ -8,8 +8,8 @@ export default function LogsControl() {
   const [modalShow, setModalShow] = useState(false);
   const socket = useSocket();
 
-  // const serverURL = "http://localhost:5000/download";
-  const serverURL = "https://accessible-ir-server.herokuapp.com/download";
+  const serverURL = "http://localhost:5000/download";
+  // const serverURL = "https://accessible-ir-server.herokuapp.com/download";
 
   function downloadLog() {
     fetch(serverURL).then((res) => {
