@@ -12,8 +12,6 @@ export default function DropZone() {
   const { sendImage } = useConversations();
   let currentLayout = []; // i think this will get reset every render??????
   const [tiles, setTiles] = useState([]); // maybe move this outside....?
-  // TODO: set gridChanged to disable button when relevant
-  const [gridChanged, setGridChanged] = useState(true);
 
   const gridWidth = 600;
 
@@ -41,9 +39,7 @@ export default function DropZone() {
     const heightItem = ((gridWidth / 2) * yRatio) / 200; // calculate current height and divide by 100px
 
     const currentTiles = layout;
-    const results = currentTiles.filter(
-      (tile) => tile.i !== "__dropping-elem__"
-    );
+    const results = currentTiles.filter((tile) => tile.i !== "__dropping-elem__");
     results.push({
       w: 1,
       h: heightItem,
@@ -103,11 +99,7 @@ export default function DropZone() {
         ))}
       </GridLayout>
       <div className="border-bottom p-3">
-        {gridChanged ? (
-          <Button onClick={sendImages}>Send Grid</Button>
-        ) : (
-          <Button disabled>Send Grid</Button>
-        )}
+        <Button onClick={sendImages}>Send Grid</Button>
       </div>
     </div>
   );

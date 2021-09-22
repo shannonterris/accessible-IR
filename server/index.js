@@ -20,7 +20,7 @@ app.use(router);
 
 function logMessage(id, text, timestamp) {
   const d = new Date(timestamp);
-  logger.info("Time: " + d + " | " + id + " sent: " + text);
+  logger.info("Time: " + d + " | " + id + " said: " + text);
 }
 
 function logSearch(id, text, timestamp) {
@@ -36,6 +36,11 @@ function logGrid(id, text, timestamp) {
 function logTouch(id, text, timestamp) {
   const d = new Date(timestamp);
   logger.info("Time: " + d + " | " + id + " touched image: " + text);
+}
+
+function logText(id, text, timestamp) {
+  const d = new Date(timestamp);
+  logger.info("Time: " + d + " | " + id + " sent text: " + text);
 }
 
 function clearLogs() {
@@ -61,7 +66,7 @@ io.on("connection", (socket) => {
 
   socket.on("send-text", ({ text, timestamp }) => {
     const recipient = "userProfile";
-    // TODO: Add logging for this interaction
+    logText("helperProfile", text, timestamp);
     socket.broadcast.to(recipient).emit("receive-text", { text });
   });
 
@@ -94,6 +99,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 5000, () =>
-  console.log(`Server has started.`)
-);
+server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
