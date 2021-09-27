@@ -56,7 +56,9 @@ io.on("connection", (socket) => {
 
   socket.on("send-message", ({ text, timestamp }) => {
     const recipient = id === "userProfile" ? "helperProfile" : "userProfile";
-    logMessage(id, text, timestamp);
+    if (text) {
+      logMessage(id, text, timestamp);
+    }
     socket.broadcast.to(recipient).emit("receive-message", {
       sender: id,
       text,
@@ -66,7 +68,9 @@ io.on("connection", (socket) => {
 
   socket.on("send-text", ({ text, timestamp }) => {
     const recipient = "userProfile";
-    logText("helperProfile", text, timestamp);
+    if (text) {
+      logText("helperProfile", text, timestamp);
+    }
     socket.broadcast.to(recipient).emit("receive-text", { text });
   });
 
@@ -79,7 +83,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send-image", ({ layout, timestamp }) => {
-    logGrid(id, layout, timestamp);
+    if (layout.length > 0) {
+      logGrid(id, layout, timestamp);
+    }
     const recipient = "userProfile";
     socket.broadcast.to(recipient).emit("receive-image", {
       sender: id,
@@ -99,4 +105,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
+server.listen(process.env.PORT || 5000, () =>
+  console.log(`Server has started.`)
+);
