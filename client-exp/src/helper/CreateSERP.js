@@ -30,8 +30,10 @@ export default function CreateSERP() {
   }
 
   return (
-    <div className="" style={{ width: "600px" }}>
-      <Button onClick={sendAll}> Send All</Button>
+    <div>
+      <div className="pb-1 d-flex justify-content-end">
+        <Button onClick={sendAll}> Send All</Button>
+      </div>
       <SendSpeech text={textToSpeech} setText={setTextToSpeech} />
       <div className="justify-content-center row border">
         <SendText text={textInformation} setText={setTextInformation} />

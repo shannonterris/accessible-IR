@@ -35,7 +35,9 @@ export default function DropZone({ tiles, setTiles }) {
     const heightItem = ((gridWidth / 2) * yRatio) / 200; // calculate current height and divide by 100px
 
     const currentTiles = layout;
-    const results = currentTiles.filter((tile) => tile.i !== "__dropping-elem__");
+    const results = currentTiles.filter(
+      (tile) => tile.i !== "__dropping-elem__"
+    );
     results.push({
       w: 1,
       h: heightItem,
@@ -79,6 +81,7 @@ export default function DropZone({ tiles, setTiles }) {
         width={gridWidth}
         onDrop={onDrop}
         onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}
+        style={{ minHeight: "200px" }}
       >
         {tiles.map((tile) => (
           <div

@@ -42,9 +42,13 @@ export default function LogsControl() {
           setModalShow(false);
         }}
       />
-      <div className="p-1">
-        <Button onClick={downloadLog}>Download Log</Button>
-        <Button onClick={() => setModalShow(true)}>Restart Log</Button>
+      <div className="p-1 btn-toolbar">
+        <div class="btn-group px-1">
+          <Button onClick={downloadLog}>Download Log</Button>
+        </div>
+        <div class="btn-group px-1">
+          <Button onClick={() => setModalShow(true)}>Restart Log</Button>
+        </div>
       </div>
     </div>
   );

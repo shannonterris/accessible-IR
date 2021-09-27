@@ -5,7 +5,9 @@ export default function speak(text, sender, id) {
   var msg = new SpeechSynthesisUtterance();
 
   // Set the text.
-  msg.text = text;
+  if (text) {
+    msg.text = text;
+  }
 
   // Can add customization here for the type of voice, speed, pitch etc.TODO
 

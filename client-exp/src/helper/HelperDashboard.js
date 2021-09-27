@@ -7,9 +7,9 @@ import LogsControl from "./LogsControl";
 export default function HelperDashboard() {
   return (
     <div>
-      <LogsControl />
       <div className="row">
         <div className="col">
+          <LogsControl />
           <SearchSystem />
           <UserFeed />
         </div>
