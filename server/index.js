@@ -30,7 +30,10 @@ function logSearch(id, text, timestamp) {
 
 function logGrid(id, text, timestamp) {
   const d = new Date(timestamp);
-  logger.info("Time: " + d + " | " + id + " sent image grid: " + text);
+  const images = JSON.parse(text).map((image) => image.i);
+  if (images.length > 0) {
+    logger.info("Time: " + d + " | " + id + " sent image grid: " + images);
+  }
 }
 
 function logTouch(id, text, timestamp) {
