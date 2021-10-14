@@ -90,14 +90,10 @@ export default function SearchSystem() {
       <Tab.Container defaultActiveKey="images">
         <Nav variant="tabs">
           <Nav.Item>
-            <Nav.Link eventKey="web">Web Results</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
             <Nav.Link eventKey="images">Images</Nav.Link>
           </Nav.Item>
         </Nav>
         <Tab.Content>
-          <Tab.Pane eventKey="web">Web search results here</Tab.Pane>
           <Tab.Pane eventKey="images">
             <div
               style={{
