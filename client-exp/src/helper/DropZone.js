@@ -105,7 +105,7 @@ export default function DropZone({ tiles, setTiles }) {
           </div>
         ))}
       </GridLayout>
-      <div className="border-bottom p-3">
+      <div className="border-bottom p-3 justify-content-end d-flex">
         <Button onClick={sendImages}>Send Grid</Button>
       </div>
     </div>
