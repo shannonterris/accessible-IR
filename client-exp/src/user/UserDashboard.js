@@ -7,7 +7,6 @@ import Robot from "./Robot";
 export default function UserDashboard() {
   return (
     <div className="" style={{ width: "600px" }}>
-      <Robot />
       <Message />
       <ReceiveText />
       <div className=" py-3 drop-zone">
