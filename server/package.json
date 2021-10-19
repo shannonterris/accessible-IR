@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1009.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs-readfile-promise": "^3.0.1",
     "http": "0.0.1-security",
     "socket.io": "^4.0.1",
     "winston": "^3.3.3"

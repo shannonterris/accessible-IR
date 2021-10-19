@@ -1,3 +1,5 @@
+const Secret = require("./aws");
+
 const cors = require("cors");
 const http = require("http");
 const express = require("express");
@@ -8,6 +10,10 @@ const server = http.createServer(app);
 
 const { logger } = require("./logger");
 const fs = require("fs");
+const readFilePromise = require("fs-readfile-promise");
+const AWS = require("aws-sdk");
+AWS.config.update({ region: "ap-southeast-2" });
+const BUCKET_NAME = "accessible-ir-logs";
 
 const io = require("socket.io")(server, {
   cors: {
@@ -15,35 +21,83 @@ const io = require("socket.io")(server, {
   },
 });
 
+const s3 = new AWS.S3({
+  accessKeyId: Secret.access_key,
+  secretAccessKey: Secret.secret_key,
+});
+
 app.use(cors());
 app.use(router);
 
+let currentFile = "activity.log";
+
+function updateFileName() {
+  return readFilePromise("activity.log", "utf8").then((data) => {
+    // if activity file is empty, want to create a new file so we dont't delete content in S3 bucket
+    console.log(data.length);
+    if (data.length === 0) {
+      const now = new Date();
+      currentFile = "activity" + now.getTime() + ".log";
+    }
+  });
+}
+
+function uploadLogs() {
+  fs.readFile("activity.log", (err, data) => {
+    if (err) throw err;
+    const params = {
+      Bucket: BUCKET_NAME,
+      Key: currentFile,
+      Body: data,
+    };
+    s3.upload(params, function (s3Err, data) {
+      if (s3Err) throw s3Err;
+      console.log(`File uploaded successfully at ${data.Location}`);
+    });
+  });
+}
+
 function logMessage(id, text, timestamp) {
-  const d = new Date(timestamp);
-  logger.info("Time: " + d + " | " + id + " said: " + text);
+  updateFileName().then(() => {
+    const d = new Date(timestamp);
+    logger.info("Time: " + d + " | " + id + " said: " + text);
+    uploadLogs();
+  });
 }
 
 function logSearch(id, text, timestamp) {
-  const d = new Date(timestamp);
-  logger.info("Time: " + d + " | " + id + " searched for: " + text);
+  updateFileName().then(() => {
+    const d = new Date(timestamp);
+    logger.info("Time: " + d + " | " + id + " searched for: " + text);
+    uploadLogs();
+  });
 }
 
 function logGrid(id, text, timestamp) {
-  const d = new Date(timestamp);
-  const images = JSON.parse(text).map((image) => image.i);
-  if (images.length > 0) {
-    logger.info("Time: " + d + " | " + id + " sent image grid: " + images);
-  }
+  updateFileName().then(() => {
+    const d = new Date(timestamp);
+    const images = JSON.parse(text).map((image) => image.i);
+    if (images.length > 0) {
+      logger.info("Time: " + d + " | " + id + " sent image grid: " + images);
+    }
+    uploadLogs();
+  });
 }
 
 function logTouch(id, text, timestamp) {
-  const d = new Date(timestamp);
-  logger.info("Time: " + d + " | " + id + " touched image: " + text);
+  updateFileName().then(() => {
+    const d = new Date(timestamp);
+    logger.info("Time: " + d + " | " + id + " touched image: " + text);
+    uploadLogs();
+  });
 }
 
 function logText(id, text, timestamp) {
-  const d = new Date(timestamp);
-  logger.info("Time: " + d + " | " + id + " sent text: " + text);
+  updateFileName().then(() => {
+    const d = new Date(timestamp);
+    logger.info("Time: " + d + " | " + id + " sent text: " + text);
+    uploadLogs();
+  });
 }
 
 function clearLogs() {
