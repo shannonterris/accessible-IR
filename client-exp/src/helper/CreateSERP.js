@@ -29,9 +29,27 @@ export default function CreateSERP() {
     // Could not send if empty and add a clear all button? !!!
   }
 
+  function sendLoading() {
+    const currentDate = new Date(); // Get timestamp of when message is sent
+    const timestamp = currentDate.getTime();
+    // Send text to speech
+    sendMessage("I am thinking...", timestamp);
+    setTextToSpeech(""); // Reset text entry field to empty
+    // Send text information
+    sendTextInfo("", timestamp);
+    setTextInformation(""); // Reset text entry field to empty
+    // Send images
+    sendImage([], timestamp);
+    setImages([]); // After sending image clear current grid
+
+    // TODO: Should we send if its empty? Not sure cause you might want to clear it....
+    // Could not send if empty and add a clear all button? !!!
+  }
+
   return (
     <div>
       <div className="pb-1 d-flex justify-content-end">
+        <Button onClick={sendLoading}> Send Loading</Button>
         <Button onClick={sendAll}> Send All</Button>
       </div>
       <SendSpeech text={textToSpeech} setText={setTextToSpeech} />
