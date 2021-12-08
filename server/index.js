@@ -1,4 +1,4 @@
-const Secret = require("./aws");
+// const Secret = require("./aws");
 
 const cors = require("cors");
 const http = require("http");
@@ -21,10 +21,10 @@ const io = require("socket.io")(server, {
   },
 });
 
-const s3 = new AWS.S3({
-  accessKeyId: Secret.access_key,
-  secretAccessKey: Secret.secret_key,
-});
+// const s3 = new AWS.S3({
+//   accessKeyId: Secret.access_key,
+//   secretAccessKey: Secret.secret_key,
+// });
 
 app.use(cors());
 app.use(router);
