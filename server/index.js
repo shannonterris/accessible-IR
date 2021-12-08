@@ -61,7 +61,7 @@ function logMessage(id, text, timestamp) {
   updateFileName().then(() => {
     const d = new Date(timestamp);
     logger.info("Time: " + d + " | " + id + " said: " + text);
-    uploadLogs();
+    //uploadLogs();
   });
 }
 
@@ -69,7 +69,7 @@ function logSearch(id, text, timestamp) {
   updateFileName().then(() => {
     const d = new Date(timestamp);
     logger.info("Time: " + d + " | " + id + " searched for: " + text);
-    uploadLogs();
+    //uploadLogs();
   });
 }
 
@@ -80,7 +80,7 @@ function logGrid(id, text, timestamp) {
     if (images.length > 0) {
       logger.info("Time: " + d + " | " + id + " sent image grid: " + images);
     }
-    uploadLogs();
+    //uploadLogs();
   });
 }
 
@@ -88,7 +88,7 @@ function logTouch(id, text, timestamp) {
   updateFileName().then(() => {
     const d = new Date(timestamp);
     logger.info("Time: " + d + " | " + id + " touched image: " + text);
-    uploadLogs();
+    //uploadLogs();
   });
 }
 
@@ -96,7 +96,7 @@ function logText(id, text, timestamp) {
   updateFileName().then(() => {
     const d = new Date(timestamp);
     logger.info("Time: " + d + " | " + id + " sent text: " + text);
-    uploadLogs();
+    //uploadLogs();
   });
 }
 
